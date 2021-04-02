@@ -3,7 +3,7 @@
 const Item = require('./item-model.js');
 const DataModel = require('./item-model.js');
 
-const Data = { };
+const Data = {};
 
 Data.addAnItem = async(req,res,next) => {
   try {
@@ -34,7 +34,7 @@ Data.deleteOneItem = async(req, res) => {
   // check to make sure this is what they're sending actually
   const items = req.query.item;
 
-  await DataModel.findOne({_id:id}, (err, entry) => {
+  await Item.findOne({_id:id}, (err, entry) => {
     const newItemArr = entry.items.filter((item, i) => {
       return i !== index;
     })

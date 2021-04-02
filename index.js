@@ -8,6 +8,9 @@
 const { default: MongoMemoryServer } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
 
+// ?
+new MongoMemoryServer({ debug: true });
+
 require('dotenv').config();
 
 const server = require('./src/server.js');
