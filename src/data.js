@@ -1,5 +1,7 @@
 'use strict';
 
+const { response } = require('express');
+
 const Item = require('./item-model.js');
 const DataModel = require('./item-model.js');
 
@@ -28,20 +30,27 @@ Data.getOneItem = async(req, res) => {
   res.status(200).json(items[0]);
 }
 
-Data.deleteOneItem = async(req, res) => {
-  //do this
-  const index = parseInt(req.params.index);
-  // check to make sure this is what they're sending actually
-  const items = req.query.item;
+// so I keep getting the MongoDB error, so I tried re-writing this but it's still throwing an error so I don't think it's actually this but I figure I'll leave both so you know I did both
 
-  await Item.findOne({_id:id}, (err, entry) => {
-    const newItemArr = entry.items.filter((item, i) => {
-      return i !== index;
-    })
-    entry.items = newItemArr;
-    entry.save();
-    response.status(200).send('successfully deleted!');
-  })
+// Data.deleteOneItem = async(req, res) => {
+//   //do this
+//   const index = parseInt(req.params.index);
+//   // check to make sure this is what they're sending actually
+//   const items = req.query.item;
+
+//   await Item.findOne({_id:id}, (err, entry) => {
+//     const newItemArr = entry.items.filter((item, i) => {
+//       return i !== index;
+//     })
+//     entry.items = newItemArr;
+//     entry.save();
+//     response.status(200).send('successfully deleted!');
+//   })
+// }
+Data.deleteOneItem = async(req, res) => {
+  const id = req.params.id;
+  await DataModel.deleteOne({_id:id});
+  res.status(200).send('successfully deleted!');
 }
 
 Data.updateOneItem = async(req, res) => {
